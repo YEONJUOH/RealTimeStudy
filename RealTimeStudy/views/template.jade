@@ -1,0 +1,74 @@
+doctype html
+html
+  head
+    meta(charset='EUC-KR')
+    title Insert title here
+    link(rel='stylesheet', href='/stylesheets/template.css')
+    link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js')
+    script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
+    script(type='text/javascript', src='/js/chat.js')
+    script(type='text/javascript', src='/socket.io/socket.io.js')
+    script(src='/js/client.js')
+    script(src='/js/text.js')
+    script(src='https://cdn.webrtc-experiment.com/RecordRTC/Whammy.js')
+    script(src='https://cdn.webrtc-experiment.com/RecordRTC/CanvasRecorder.js')
+  body
+    #wrapper
+      // Sidebar
+      #sidebar-wrapper(style='padding-top:50px;')
+        input#u_name(type='hidden', value='#{u_obj.U_NAME}')
+        input#u_id(type='hidden', value='#{u_obj.U_ID}')
+        input#s_id(type='hidden', value='#{s_obj.S_ID}')
+        nav#spy
+          div
+            span.glyphicon.glyphicon-volume-down(style='font-size:70px;padding-left:15px;', onclick='#{audio_order}')
+          div
+            span#rtcBtn.glyphicon.glyphicon-record(style='font-size:50px;padding-left:13px;padding-top:10px;')
+          //
+            <ul class="sidebar-nav nav">
+            <li class="sidebar-brand">
+            <a href="#home"><span class="fa fa-home solo">Home</span></a>
+            </li>
+            </ul>
+      // Page content
+      #page-content-wrapper
+        .page-content.inset(data-spy='scroll', data-target='#spy')
+          .row
+            canvas#drawing(style='border:solid 0.5px;')
+            #fontSelectDiv
+              | Font:
+              select#fontSelect
+                option(value='Arial') Arial
+                option(value='Comic Sans', selected='') Comic Sans
+                option(value='Lucida Sans') Lucida Sans
+                option(value='Helvetica') Helvetica
+                option(value='Palatino') Palatino
+              |          Size:
+              select#sizeSelect
+                option(value='32') 32 px
+                option(value='48', selected='') 48 px
+                option(value='64') 64 px
+                option(value='128') 128 px
+              |           Text stroke color:
+              select#strokeStyleSelect
+                option(value='red') red
+                option(value='green') green
+                option(value='blue') blue
+                option(value='orange') orange
+                option(value='cornflowerblue') cornflowerblue
+                option(value='goldenrod') goldenrod
+                option(value='navy', selected='') navy
+                option(value='purple') purple
+              |                             Text:
+              input#charD(type='checkbox')
+              span(onclick='clearC()') &nbsp&nbsp Clear
+          img#chat_btn(alt='', src='/Img/chat_icon.png', style='width: 60px; height: 60px; position: fixed; top: 90%; left: 90%')
+    #chat_div.col-md-12
+      #chat_info
+        h4#info
+          | #{s_obj.S_NAME}
+          span#exit_img.glyphicon.glyphicon-remove
+      #chat_con
+      #input_box
+        input#chat_input.form-control(type='text')
